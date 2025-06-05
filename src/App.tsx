@@ -1,6 +1,8 @@
 import { Layout } from "./components/layout";
 import { ThemeProvider } from "./context/theme-provider";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import WeatherDashboard from "./pages/WeatherDashboard";
+import CityPages from "./pages/CityPages";
 
 
 function App() {
@@ -8,7 +10,10 @@ function App() {
       <BrowserRouter>
         <ThemeProvider defaultTheme="dark">
           <Layout>
-            hello
+            <Routes>
+              <Route path="/" element={<WeatherDashboard/>}/>
+              <Route path="/city/:cityName" element={<CityPages/>}/>
+            </Routes>
           </Layout>
         </ThemeProvider>
       </BrowserRouter>
