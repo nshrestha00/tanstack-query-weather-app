@@ -2,6 +2,7 @@ import WeatherSkeleton from "@/components/loading_skeleton";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button"
 import { useGeolocation } from "@/hooks/use_geolocation"
+import { useForecastQuery, useReverseGeocodeQuery, useWeatherQuery } from "@/hooks/use_weather";
 import { AlertTriangle, MapPin, RefreshCw } from "lucide-react"
 
 const WeatherDashboard = () => {
@@ -12,13 +13,22 @@ const {
   isLoading: locationLoading,
 }= useGeolocation();
 
-console.log(coordinates);
+const weatherQuery = useWeatherQuery(coordinates);
+const forecastQuery = useForecastQuery(coordinates);
+const locationQuery = useReverseGeocodeQuery(coordinates);
+
+console.log(weatherQuery);
+console.log(forecastQuery);
+console.log(locationQuery);
+
 
 const handleRefresh = () => {
   getLocation();
 
   if (coordinates) {
-    // reload weather data
+    weatherQuery.refetch();
+    forecastQuery.refetch();
+    locationQuery.refetch();
   }
 };
 
@@ -59,6 +69,29 @@ if(!coordinates){
   );
 }
 
+const locationName = locationQuery.data?.[0];
+
+if(weatherQuery.error || forecastQuery.error || locationQuery.error) {
+    return(
+    <Alert variant="destructive">
+      <AlertTriangle className="h-4 w-4"/>
+      <AlertTitle>Error</AlertTitle>
+      <AlertDescription className="flex flex-col gap-4">
+        <p>Failed to fetch weather data.Please try again.</p>
+        <Button onClick={handleRefresh} variant={"outline"} className="w-fit">
+          <RefreshCw className="h-4 w-4 mr-2"/>
+          retry
+        </Button>
+        Your session has expired. Please log in again.
+      </AlertDescription>
+    </Alert>
+  );
+}
+
+if(!weatherQuery.data || !forecastQuery.data) {
+  return <WeatherSkeleton/>
+}
+
   return (
     <div className="space-y-4">
       {/* Favorite Cities */}
@@ -68,9 +101,9 @@ if(!coordinates){
         <Button variant="outline"
         size={"icon"}
         onClick={handleRefresh}
-        // disabled={}
+        disabled={weatherQuery.isFetching || forecastQuery.isFetching}
         >
-          <RefreshCw className="h-4 w-4"/>
+          <RefreshCw className={`h-4 w-4 ${weatherQuery.isFetching ? "animate-spin" : ""}`}/>
         </Button>
       </div>
 
