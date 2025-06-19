@@ -1,3 +1,4 @@
+import CurrentWeather from "@/components/CurrentWeather";
 import WeatherSkeleton from "@/components/loading_skeleton";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button"
@@ -107,7 +108,20 @@ if(!weatherQuery.data || !forecastQuery.data) {
         </Button>
       </div>
 
-      {/* Current and Hourl weather */}
+      <div className="grid gap-6">
+        <div>
+        {locationName &&  <CurrentWeather 
+          data={weatherQuery.data} 
+          locationName={locationName } 
+        />}
+      {/* Hourly temprature */}
+        </div>
+
+      <div>
+        {/* details */}
+        {/* forecast*/}
+      </div>
+      </div>
     </div>
   )
 }
