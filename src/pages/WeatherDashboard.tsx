@@ -3,6 +3,7 @@ import HourlyTemperature from "@/components/HourlyTemperature";
 import WeatherSkeleton from "@/components/loading_skeleton";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button"
+import WeatherDetails from "@/components/WeatherDetails";
 import { useGeolocation } from "@/hooks/use_geolocation"
 import { useForecastQuery, useReverseGeocodeQuery, useWeatherQuery } from "@/hooks/use_weather";
 import { AlertTriangle, MapPin, RefreshCw } from "lucide-react"
@@ -121,6 +122,7 @@ if(!weatherQuery.data || !forecastQuery.data) {
 
       <div>
         {/* details */}
+        <WeatherDetails data={weatherQuery.data}/>
         {/* forecast*/}
       </div>
       </div>
