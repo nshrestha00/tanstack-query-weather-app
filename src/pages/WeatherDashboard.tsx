@@ -4,6 +4,7 @@ import WeatherSkeleton from "@/components/loading_skeleton";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button"
 import WeatherDetails from "@/components/WeatherDetails";
+import { WeatherForecast } from "@/components/WeatherForecast";
 import { useGeolocation } from "@/hooks/use_geolocation"
 import { useForecastQuery, useReverseGeocodeQuery, useWeatherQuery } from "@/hooks/use_weather";
 import { AlertTriangle, MapPin, RefreshCw } from "lucide-react"
@@ -120,10 +121,11 @@ if(!weatherQuery.data || !forecastQuery.data) {
         <HourlyTemperature data= {forecastQuery.data}/>
         </div>
 
-      <div>
+      <div className="grid gap-6 md:grid-cols-2 items-start">
         {/* details */}
         <WeatherDetails data={weatherQuery.data}/>
         {/* forecast*/}
+        <WeatherForecast data={forecastQuery.data}/>
       </div>
       </div>
     </div>
