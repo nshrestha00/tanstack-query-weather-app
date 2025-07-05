@@ -1,4 +1,5 @@
 import CurrentWeather from "@/components/CurrentWeather";
+import { FavoriteButton } from "@/components/FavoriteButton";
 import HourlyTemperature from "@/components/HourlyTemperature";
 import WeatherSkeleton from "@/components/loading_skeleton";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -47,13 +48,15 @@ if(!weatherQuery.data || !forecastQuery.data || !params.cityName) {
         </h1>
 
         <div>
-          {/* favorite button */}
+          <FavoriteButton 
+            data={{...weatherQuery.data, name: params.cityName}}/>
         </div>
       </div>
 
       <div className="grid gap-6">
         <div className="flex flex-col gap-4">
-         <CurrentWeather data={weatherQuery.data}/>
+         <CurrentWeather data={weatherQuery.data}
+         />
 
         <HourlyTemperature data= {forecastQuery.data}/>
         </div>
