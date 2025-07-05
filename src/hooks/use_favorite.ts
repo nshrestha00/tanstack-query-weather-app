@@ -10,7 +10,7 @@ interface FavoriteCity{
     state?: string;
     addedAt: number;
 }
-export function useFavotite() {
+export function useFavorite() {
    const[favorites, setfavorites]= useLocalStorage<FavoriteCity[]>(
     "favorites",
     []);

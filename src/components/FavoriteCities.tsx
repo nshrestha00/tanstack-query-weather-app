@@ -1,10 +1,10 @@
-import { useFavotite } from "@/hooks/use_favorite"
 import { ScrollArea } from "./ui/scroll-area";
 import { useNavigate } from "react-router-dom";
 import { useWeatherQuery } from "@/hooks/use_weather";
 import { Button } from "./ui/button";
 import { Loader2, X } from "lucide-react";
 import { toast } from "sonner";
+import { useFavorite } from "@/hooks/use_favorite";
 
 
 interface FavoriteCityTabletProps {
@@ -15,7 +15,7 @@ interface FavoriteCityTabletProps {
     onRemove: (id: string) => void;
 }
 const FavoriteCities = () => {
-   const {favorites,removeFavorite}= useFavotite();
+   const {favorites,removeFavorite}= useFavorite();
 
    if(!favorites.length){
     return null;

@@ -1,8 +1,8 @@
 import { WeatherData } from "@/api/types";
-import { useFavotite } from "@/hooks/use_favorite";
 import { toast } from "sonner";
 import { Button } from "./ui/button";
 import { Star } from "lucide-react";
+import { useFavorite } from "@/hooks/use_favorite";
 
 
 interface FavoriteButtonProps {
@@ -10,7 +10,7 @@ interface FavoriteButtonProps {
 }
 
 export function FavoriteButton({ data }: FavoriteButtonProps) {
-  const { addToFavorite, removeFavorite, isFavorite } = useFavotite();
+  const { addToFavorite, removeFavorite, isFavorite } = useFavorite();
   const isCurrentlyFavorite = isFavorite(data.coord.lat, data.coord.lon);
 
   const handleToggleFavorite = () => {
