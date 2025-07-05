@@ -16,7 +16,7 @@ const CitySearch = () => {
     const {history, addToHistory, clearHistory} = useSearchHistory();  
 
     const handleSelect =(cityData:string)=>{
-        const [lat, lon, name, country] = cityData.split("|");
+        const [lat, lon, name, country] = cityData.split("|").map(s => s.trim());
 
         // Add to search history
         addToHistory.mutate({
@@ -28,7 +28,7 @@ const CitySearch = () => {
         });
 
         setOpen(false);
-        navigate(`/city/${name}??lat=${lat}&lon=${lon}`);
+        navigate(`/city/${name}?lat=${lat}&lon=${lon}`);
     };
 
 
@@ -75,7 +75,7 @@ const CitySearch = () => {
                 return (
                          <CommandItem 
                             key={`${location.lat}-${location.lon}`}
-                            value={`${location.lat}| ${location.lon}| ${location.name}| ${location.country}`}
+                            value={`${location.lat}|${location.lon}|${location.name}|${location.country}`}
                             onSelect={handleSelect}
                         >
                             <Clock className="mr-2 h-4 w-4 text-muted-foreground" />
